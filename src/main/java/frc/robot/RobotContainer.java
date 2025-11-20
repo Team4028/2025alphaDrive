@@ -84,8 +84,9 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        driverController.rightTrigger().whileTrue(Commands.run(() -> speedScaler = 0.7))
-                .whileFalse((Commands.run(() -> speedScaler = 0.3)));
+        driverController.rightTrigger()
+                .onTrue(Commands.runOnce(() -> speedScaler = 0.7 * driverController.getRightTriggerAxis()))
+                .onFalse((Commands.runOnce(() -> speedScaler = 0.3)));
     }
 
     public Command getAutonomousCommand() {
