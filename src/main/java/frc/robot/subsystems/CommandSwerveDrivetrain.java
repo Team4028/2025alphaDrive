@@ -362,9 +362,10 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
     /** Drive the robot using robot-relative speeds */
     public void driveRobotRelative(ChassisSpeeds speeds) {
-        this.applyRequest(() -> new SwerveRequest.RobotCentric()
-                .withVelocityX(speeds.vxMetersPerSecond)
-                .withVelocityY(speeds.vyMetersPerSecond)
-                .withRotationalRate(speeds.omegaRadiansPerSecond));
+        this.setControl(
+                new SwerveRequest.RobotCentric()
+                        .withVelocityX(speeds.vxMetersPerSecond)
+                        .withVelocityY(speeds.vyMetersPerSecond)
+                        .withRotationalRate(speeds.omegaRadiansPerSecond));
     }
 }
