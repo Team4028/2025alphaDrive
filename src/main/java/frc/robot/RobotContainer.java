@@ -105,6 +105,7 @@ public class RobotContainer {
                                 .onTrue(Commands.runOnce(
                                                 () -> speedScaler = 0.8 * driverController.getRightTriggerAxis()))
                                 .onFalse((Commands.runOnce(() -> speedScaler = 0.3)));
+
         }
 
         public Command getAutonomousCommand() {

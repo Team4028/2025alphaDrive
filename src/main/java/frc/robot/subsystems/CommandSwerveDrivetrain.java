@@ -134,6 +134,8 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             startSimThread();
         }
 
+    }
+    {
         RobotConfig config;
         try {
             config = RobotConfig.fromGUISettings();
@@ -141,7 +143,6 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             // Handle exception as needed
             throw new RuntimeException(" Failed to load RobotConfig for pathplanner");
         }
-
         // Configure AutoBuilder last
         AutoBuilder.configure(
                 this::getPose, // Robot pose supplier
@@ -152,8 +153,8 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
                 // Also optionally outputs individual module feedforwards
                 new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for
                                                 // holonomic drive trains
-                        new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                        new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+                        new PIDConstants(2.0, 0.0, 0.0), // Translation PID constants
+                        new PIDConstants(2.0, 0.0, 0.0) // Rotation PID constants
                 ),
                 config, // The robot configuration
                 () -> {
@@ -355,12 +356,10 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         return this.getState().Pose;
     }
 
-    /** Robot-relative chassis speeds */
     public ChassisSpeeds getRobotRelativeSpeeds() {
         return this.getState().Speeds;
     }
 
-    /** Drive the robot using robot-relative speeds */
     public void driveRobotRelative(ChassisSpeeds speeds) {
         this.setControl(
                 new SwerveRequest.RobotCentric()
